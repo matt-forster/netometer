@@ -5,7 +5,6 @@ describe('#providers // googlefiber', function () {
     jest.setTimeout(60000);
 
     const result = await googlefiber.test();
-    console.log(result);
 
     expect(result).toHaveProperty('down');
     expect(result.down).toHaveProperty('speed');

@@ -2,7 +2,7 @@ const fast = require('./fast');
 
 describe('#providers // fast', function () {
   it('test', async function () {
-    jest.setTimeout(20000);
+    jest.setTimeout(70000);
 
     const result = await fast.test();
 
