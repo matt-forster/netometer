@@ -1,6 +1,6 @@
 const fast = require('./fast');
 
-describe.only('#providers // fast', function () {
+describe('#providers // fast', function () {
   it('test', async function () {
     jest.setTimeout(70000);
 

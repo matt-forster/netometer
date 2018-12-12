@@ -29,7 +29,7 @@ function readSpeedFactory(page) {
       const $ = document.querySelector.bind(document);
 
       return {
-        speed: Number($(`.result-item.result-item-${elem} > .result-data > .number`).textContent),
+        value: Number($(`.result-item.result-item-${elem} > .result-data > .number`).textContent),
         unit: $(`.result-item.result-item-${elem} > .result-label > .result-data-unit`).textContent.trim()
       };
     }, element);
