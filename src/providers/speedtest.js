@@ -14,7 +14,7 @@ function readSpeedFactory(page) {
       // eslint-disable-next-line no-undef
       const $ = document.querySelector.bind(document);
 
-      return $('.result-item-id').style.display === 'none';
+      return $('.result-item-id').style.display !== 'none';
     });
 
     if (!success) {

@@ -25,11 +25,16 @@ function readSpeedFactory(page) {
   }
 
   async function waitForTest() {
-    return await page.evaluate(() => {
+    const success = await page.evaluate(() => {
       const $ = document.querySelector.bind(document); // eslint-disable-line
 
       return $('#speedometer .current-speed span[name=\'data\']').textContent === 'Done';
     });
+
+    if (!success) {
+      await delay(100);
+      return waitForTest();
+    }
   }
 
   async function getSpeedFromElement(element) {

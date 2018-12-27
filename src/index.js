@@ -21,16 +21,17 @@ async function testSpeed(providerName, {unit, format = false} = {}) {
   if (down) {
     down.value = convertSpeed(down.value, down.unit, unit);
   }
-  if (ping) {
-    // TODO: convert ping
-    ping.value = ping.value;
-  }
+
+  // TODO: convert ping
+  // if (ping) {
+  //   ping.value = ping.value;
+  // }
 
   const formatResult = result => {
     if (!result) return null;
-    const speed = format ? getReadableNumber(result.value) : parseFloat(result.value);
+    const value = format ? getReadableNumber(result.value) : parseFloat(result.value);
     const displayUnit = unit || result.unit;
-    return {speed, unit: displayUnit};
+    return {value, unit: displayUnit};
   };
 
   return {
