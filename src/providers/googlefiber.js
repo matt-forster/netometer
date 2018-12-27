@@ -24,7 +24,7 @@ function readSpeedFactory(page) {
     await button.click();
   }
 
-  async function isDone() {
+  async function waitForTest() {
     return await page.evaluate(() => {
       const $ = document.querySelector.bind(document); // eslint-disable-line
 
@@ -37,32 +37,24 @@ function readSpeedFactory(page) {
       const $ = document.querySelector.bind(document); // eslint-disable-line
 
       return {
-        speed: Number($(`#speeds .${elem} > .transfer-speed`).textContent),
+        value: Number($(`#speeds .${elem} > .transfer-speed`).textContent),
         unit: $(`#speeds .${elem} > .transfer-units`).textContent
       };
     }, element);
 
-    if (!await isDone()) {
-      await delay(100);
-      return getSpeedFromElement(element);
-    }
     return result;
   }
 
-  async function getPing() {
+  async function getPingFromElement() {
     const result = await page.evaluate(() => {
       const $ = document.querySelector.bind(document); // eslint-disable-line
 
       return {
-        speed: Number($('#ping .speed-value > span[name=\'ping\']').textContent),
+        value: Number($('#ping .speed-value > span[name=\'ping\']').textContent),
         unit: $('#ping .speed-value > span[name=\'pingUnits\']').textContent
       };
     });
 
-    if (!await isDone()) {
-      await delay(100);
-      return getPing();
-    }
     return result;
   }
 
@@ -72,10 +64,12 @@ function readSpeedFactory(page) {
     await confirmStart();
     await delay(100);
 
+    await waitForTest();
+
     const [down, up, ping] = await Promise.all([
       getSpeedFromElement('upload-speed'), // Yes, upload-speed is download
       getSpeedFromElement('download-speed'), // Yes, download-speed is upload
-      getPing()
+      getPingFromElement()
     ]);
 
     return {down, up, ping};
